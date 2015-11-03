@@ -1,47 +1,16 @@
-language: csharp
-mono: 3.12.0
-env: TARGET_LANG=dotnet
+language: objective-c
+os:
+  - osx
+osx_image: xcode7
+env: TARGET_LANG=objective-c
 sudo: false
 
-matrix:
-  include:
-    - env: TARGET_LANG=java
-      jdk: oraclejdk8
-
-    - env: TARGET_LANG=ruby
-      rvm: 2.0.0
-    - env: TARGET_LANG=ruby
-      rvm: 2.1.0
-    - env: TARGET_LANG=ruby
-      rvm: 2.2.0
-    - env: TARGET_LANG=ruby
-      rvm: jruby-head
-
-    - env: TARGET_LANG=javascript
-      node_js: 0.10.40
-    - env: TARGET_LANG=javascript
-      node_js: 4.1.2
-
-    - env: TARGET_LANG=go
-      go: latest
-
-    - env: TARGET_LANG=python
-      python: "2.7"
-    - env: TARGET_LANG=python
-      python: "3.4"
-
-before_install:
-  - export EnableNuGetPackageRestore=true
-  # https://github.com/travis-ci/travis-ci/issues/2839
-  - export JAVA_HOME="$(/usr/libexec/java_home)"
-
-addons:
-  apt:
-    packages:
-    - jq
+before_script:
+  - brew install jq
 
 script: "cd $TARGET_LANG; make"
 
 branches:
   only:
     - master
+    - objective-c-on-travis
